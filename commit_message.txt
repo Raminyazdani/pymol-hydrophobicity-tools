@@ -1,0 +1,17 @@
+Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(init): Initial commit: project structure and dependencies
+
+Set up the foundational scaffolding for the PyMOL Hydrophobicity Tools project.
+This initial commit establishes the Python project structure with essential files:
+
+- Created .gitignore to exclude Python cache files (__pycache__/, *.pyc), 
+  generated plots (*.png), PyMOL session files (*.pse), and pytest cache
+- Added requirements.txt with core dependencies: BioPython (>=1.79), 
+  NumPy (>=1.21.0), and Matplotlib (>=3.3.0) for PDB parsing, numerical 
+  computation, and visualization respectively
+- Added minimal README.md stub with project title placeholder
+
+This provides the clean starting point needed for systematic development of 
+the hydrophobicity analysis toolkit. Dependencies are pinned to minimum 
+versions for reproducibility while allowing compatible updates.
+
+Verified: No build/test infrastructure exists yet, appropriate for initial commit.
