@@ -1,3 +1,5 @@
 biopython>=1.79
 matplotlib>=3.3.0
 numpy>=1.21.0
+# For PyMOL scripting (external installation required)
+# pymol-open-source  # Optional, install separately if needed

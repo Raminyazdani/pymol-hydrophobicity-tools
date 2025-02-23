@@ -4,23 +4,22 @@ __pycache__/
 *$py.class
 *.so
 .Python
-
-# Testing
+*.egg-info/
+dist/
+build/
 .pytest_cache/
-.coverage
-htmlcov/
 
-# IDEs
+# Generated output files
+*.png
+*.pse
+
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# Generated files
-*.png
-*.pse
-*.log
-
-# History artifacts
-history/
+# OS
+.DS_Store
+Thumbs.db
