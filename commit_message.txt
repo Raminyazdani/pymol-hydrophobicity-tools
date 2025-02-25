@@ -1,20 +1,26 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(parser): Add RaminCalc class skeleton for PDB parsing
+Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(parser): Add get_template_pdb helper method
 
-Implemented the basic infrastructure for PDB file parsing by creating the 
-RaminCalc utility class in calculate_hydrophobicity.py.
+Added the first parsing method to RaminCalc class - a helper function for 
+splitting PDB lines according to format templates.
 
-This class will serve as the foundation for extracting structured data from 
-PDB (Protein Data Bank) format files. The skeleton includes:
-- Class definition with __init__ constructor
-- Import statements for BioPython's PDB module
-- Placeholder for static methods to parse PDB line formats
+Implemented get_template_pdb(line, template) method:
+- Takes a PDB line string and a template format (e.g., "6s5s1s4s")
+- Splits the line according to template column widths
+- Handles whitespace and fixed-width column parsing
+- Returns list of extracted fields
 
-Rationale: Starting with the class structure helps organize code from the 
-beginning and provides a clear pattern for building out full functionality. 
-The PDB format uses fixed-width columns, so a dedicated parser utility will 
-be essential for reliable data extraction.
+Example usage:
+template = "6s5s1s4s"  # For ATOM record: 6 chars, 5 chars, 1 char, 4 chars
+fields = RaminCalc.get_template_pdb(pdb_line, template)
 
-Next steps: Implement the actual parsing methods (get_data_pdb, 
-get_custom_data_pdb, get_template_pdb) to handle PDB format specifications.
+Rationale: The PDB format uses rigid column-based positioning. This helper 
+method provides the core functionality for parsing any PDB line type by 
+splitting according to template patterns. Building this foundation first makes 
+implementing the higher-level methods (get_data_pdb, get_custom_data_pdb) easier.
 
-Verified: Class structure compiles without errors, ready for method implementation.
+This follows the software development principle of building low-level utilities 
+first before composing them into higher-level functions.
+
+Next step: Add get_data_pdb and get_custom_data_pdb methods that will use this helper.
+
+Verified: Method correctly splits test PDB lines according to templates.
