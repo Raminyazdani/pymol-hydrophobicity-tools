@@ -1,26 +1,26 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(parser): Add get_template_pdb helper method
+Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(parser): Add get_custom_data_pdb method
 
-Added the first parsing method to RaminCalc class - a helper function for 
-splitting PDB lines according to format templates.
+Added the second parsing method for extracting substrings from specific column 
+positions in PDB lines.
 
-Implemented get_template_pdb(line, template) method:
-- Takes a PDB line string and a template format (e.g., "6s5s1s4s")
-- Splits the line according to template column widths
-- Handles whitespace and fixed-width column parsing
-- Returns list of extracted fields
+Implemented get_custom_data_pdb(line, start, end) method:
+- Extracts substring from PDB line between column indices
+- Uses 1-indexed positioning per PDB format specification
+- Handles cases where line is shorter than requested range
+- Returns extracted string, stripped of whitespace
 
 Example usage:
-template = "6s5s1s4s"  # For ATOM record: 6 chars, 5 chars, 1 char, 4 chars
-fields = RaminCalc.get_template_pdb(pdb_line, template)
+# Extract residue name from columns 18-20
+residue = RaminCalc.get_custom_data_pdb(pdb_line, 18, 20)
 
-Rationale: The PDB format uses rigid column-based positioning. This helper 
-method provides the core functionality for parsing any PDB line type by 
-splitting according to template patterns. Building this foundation first makes 
-implementing the higher-level methods (get_data_pdb, get_custom_data_pdb) easier.
+Rationale: While get_template_pdb works well for structured record types, 
+sometimes we need to extract a specific field by column number (as documented 
+in PDB specifications). This method provides direct column-based extraction, 
+useful when you know exact positions but don't need a full template.
 
-This follows the software development principle of building low-level utilities 
-first before composing them into higher-level functions.
+This complements the template-based approach with a simpler interface for 
+single-field extraction tasks.
 
-Next step: Add get_data_pdb and get_custom_data_pdb methods that will use this helper.
+Next step: Add get_data_pdb method as the high-level interface combining both approaches.
 
-Verified: Method correctly splits test PDB lines according to templates.
+Verified: Method correctly extracts substrings from various column positions.
