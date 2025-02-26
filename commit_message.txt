@@ -1,22 +1,25 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(parser): Complete RaminCalc class with all PDB parsing methods
+Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(extraction): Start implementing get_residues function
 
-Built out the full PDB parsing utility class with three static methods for 
-flexible data extraction from PDB format files.
+Started building the residue extraction pipeline by creating the get_residues() 
+function skeleton and adding support for configurable output file naming.
 
-Implemented methods:
-- get_data_pdb(line, template): Extracts data from a PDB line using a template 
-  string that specifies column widths (e.g., "6s5s1s4s" for ATOM records)
-- get_custom_data_pdb(line, start, end): Extracts a substring from a PDB line 
-  between specified column indices (1-indexed per PDB spec)
-- get_template_pdb(line, template): Helper method that splits a line according 
-  to template format, handling whitespace and fixed-width columns
+Changes:
+- Added OUTPUT_PREFIX environment variable support with default 'hydrophobicity'
+  This allows users to customize output filenames via HYDROPHOBICITY_OUTPUT_PREFIX
+- Created get_residues(pdb_file) function skeleton
+- Set up basic structure for reading PDB files and extracting amino acids
+- Added necessary imports (os, sys for environment and exit handling)
 
-Rationale: The PDB format uses rigid column-based positioning specified in the 
-PDB format documentation. These static methods provide reusable utilities for 
-parsing any PDB line format, following the template pattern for maintainability. 
-This approach is flexible enough to handle ATOM, HETATM, and other record types.
+Rationale: Before calculating hydrophobicity, we need to extract amino acid 
+residues from PDB structures. This function will filter the PDB file to find 
+relevant residues (typically from chain A, using CA atoms as representatives). 
+Starting with the function structure and environment variable setup establishes 
+the pattern.
 
-The RaminCalc class is now complete and ready to be used by the residue 
-extraction function (get_residues) which will be implemented next.
+The environment variable approach allows output customization without hardcoding 
+student names or requiring code changes, making the tool more flexible and 
+portfolio-appropriate.
 
-Verified: Methods correctly parse PDB format with proper column handling.
+Next step: Implement the full residue extraction logic with chain and atom filtering.
+
+Verified: Function skeleton compiles, environment variable loads correctly.
