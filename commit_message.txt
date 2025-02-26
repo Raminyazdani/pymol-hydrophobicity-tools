@@ -1,26 +1,22 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(parser): Add get_custom_data_pdb method
+Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(parser): Complete RaminCalc class with all PDB parsing methods
 
-Added the second parsing method for extracting substrings from specific column 
-positions in PDB lines.
+Built out the full PDB parsing utility class with three static methods for 
+flexible data extraction from PDB format files.
 
-Implemented get_custom_data_pdb(line, start, end) method:
-- Extracts substring from PDB line between column indices
-- Uses 1-indexed positioning per PDB format specification
-- Handles cases where line is shorter than requested range
-- Returns extracted string, stripped of whitespace
+Implemented methods:
+- get_data_pdb(line, template): Extracts data from a PDB line using a template 
+  string that specifies column widths (e.g., "6s5s1s4s" for ATOM records)
+- get_custom_data_pdb(line, start, end): Extracts a substring from a PDB line 
+  between specified column indices (1-indexed per PDB spec)
+- get_template_pdb(line, template): Helper method that splits a line according 
+  to template format, handling whitespace and fixed-width columns
 
-Example usage:
-# Extract residue name from columns 18-20
-residue = RaminCalc.get_custom_data_pdb(pdb_line, 18, 20)
+Rationale: The PDB format uses rigid column-based positioning specified in the 
+PDB format documentation. These static methods provide reusable utilities for 
+parsing any PDB line format, following the template pattern for maintainability. 
+This approach is flexible enough to handle ATOM, HETATM, and other record types.
 
-Rationale: While get_template_pdb works well for structured record types, 
-sometimes we need to extract a specific field by column number (as documented 
-in PDB specifications). This method provides direct column-based extraction, 
-useful when you know exact positions but don't need a full template.
+The RaminCalc class is now complete and ready to be used by the residue 
+extraction function (get_residues) which will be implemented next.
 
-This complements the template-based approach with a simpler interface for 
-single-field extraction tasks.
-
-Next step: Add get_data_pdb method as the high-level interface combining both approaches.
-
-Verified: Method correctly extracts substrings from various column positions.
+Verified: Methods correctly parse PDB format with proper column handling.
