@@ -1,25 +1,25 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(extraction): Start implementing get_residues function
+Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(extraction): Add OUTPUT_PREFIX environment variable support
 
-Started building the residue extraction pipeline by creating the get_residues() 
-function skeleton and adding support for configurable output file naming.
+Added configuration support for customizable output file naming through 
+environment variables.
 
 Changes:
-- Added OUTPUT_PREFIX environment variable support with default 'hydrophobicity'
-  This allows users to customize output filenames via HYDROPHOBICITY_OUTPUT_PREFIX
-- Created get_residues(pdb_file) function skeleton
-- Set up basic structure for reading PDB files and extracting amino acids
-- Added necessary imports (os, sys for environment and exit handling)
+- Import os and sys modules for environment variable access
+- Added OUTPUT_PREFIX = os.environ.get('HYDROPHOBICITY_OUTPUT_PREFIX', 'hydrophobicity')
+- Default value 'hydrophobicity' if environment variable not set
+- This will be used for naming all generated plot files
 
-Rationale: Before calculating hydrophobicity, we need to extract amino acid 
-residues from PDB structures. This function will filter the PDB file to find 
-relevant residues (typically from chain A, using CA atoms as representatives). 
-Starting with the function structure and environment variable setup establishes 
-the pattern.
+Rationale: Using environment variables instead of hardcoded values (like student 
+names or IDs) makes the tool flexible and professional. Users can customize 
+output filenames without modifying code:
 
-The environment variable approach allows output customization without hardcoding 
-student names or requiring code changes, making the tool more flexible and 
-portfolio-appropriate.
+  $ export HYDROPHOBICITY_OUTPUT_PREFIX=protein_1ubq
+  $ python calculate_hydrophobicity.py 1ubq.pdb
+  # Generates: protein_1ubq_plot_window5.png
 
-Next step: Implement the full residue extraction logic with chain and atom filtering.
+This approach follows 12-factor app principles for configuration and makes the 
+tool suitable for batch processing multiple proteins with distinct output names.
 
-Verified: Function skeleton compiles, environment variable loads correctly.
+Next step: Create get_residues function that will use this configuration.
+
+Verified: Environment variable loads correctly with fallback to default value.
