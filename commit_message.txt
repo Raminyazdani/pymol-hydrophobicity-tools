@@ -1,25 +1,24 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(extraction): Add OUTPUT_PREFIX environment variable support
+Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(extraction): Complete get_residues with full CA atom filtering
 
-Added configuration support for customizable output file naming through 
-environment variables.
+Finished the residue extraction implementation with proper filtering for chain 
+selection and alpha carbon (CA) atoms.
 
-Changes:
-- Import os and sys modules for environment variable access
-- Added OUTPUT_PREFIX = os.environ.get('HYDROPHOBICITY_OUTPUT_PREFIX', 'hydrophobicity')
-- Default value 'hydrophobicity' if environment variable not set
-- This will be used for naming all generated plot files
+Complete implementation:
+- Open and read PDB file line by line
+- Filter for ATOM records only (excludes HETATM, water, etc.)
+- Filter for chain A residues specifically
+- Filter for CA (alpha carbon) atoms only - one per residue
+- Extract 3-letter amino acid codes using RaminCalc.get_data_pdb()
+- Remove duplicates while maintaining sequence order
+- Return clean list of residue codes (e.g., ['MET', 'GLY', 'ALA', ...])
 
-Rationale: Using environment variables instead of hardcoded values (like student 
-names or IDs) makes the tool flexible and professional. Users can customize 
-output filenames without modifying code:
+Rationale: Alpha carbon (CA) atoms represent the protein backbone and occur 
+exactly once per residue, making them perfect for hydrophobicity analysis. 
+This avoids counting the same residue multiple times (which would happen if 
+we used all atoms). Focusing on chain A is standard for single-chain protein 
+analysis.
 
-  $ export HYDROPHOBICITY_OUTPUT_PREFIX=protein_1ubq
-  $ python calculate_hydrophobicity.py 1ubq.pdb
-  # Generates: protein_1ubq_plot_window5.png
+The function now correctly extracts the amino acid sequence from a PDB file 
+in the proper order, ready for hydrophobicity mapping.
 
-This approach follows 12-factor app principles for configuration and makes the 
-tool suitable for batch processing multiple proteins with distinct output names.
-
-Next step: Create get_residues function that will use this configuration.
-
-Verified: Environment variable loads correctly with fallback to default value.
+Verified: Correctly extracts residues from test PDB file with proper filtering.
