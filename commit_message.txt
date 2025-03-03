@@ -1,24 +1,30 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(extraction): Complete get_residues with full CA atom filtering
+Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(calculation): Add Kyte-Doolittle scale (incomplete)
 
-Finished the residue extraction implementation with proper filtering for chain 
-selection and alpha carbon (CA) atoms.
+⚠️ OOPS: Started adding the Kyte-Doolittle scale but only included partial data!
 
-Complete implementation:
-- Open and read PDB file line by line
-- Filter for ATOM records only (excludes HETATM, water, etc.)
-- Filter for chain A residues specifically
-- Filter for CA (alpha carbon) atoms only - one per residue
-- Extract 3-letter amino acid codes using RaminCalc.get_data_pdb()
-- Remove duplicates while maintaining sequence order
-- Return clean list of residue codes (e.g., ['MET', 'GLY', 'ALA', ...])
+Created compute_hydrophobicity(residues, window_size=3) function and began 
+adding the hydrophobicity scale dictionary, but made an oversight.
 
-Rationale: Alpha carbon (CA) atoms represent the protein backbone and occur 
-exactly once per residue, making them perfect for hydrophobicity analysis. 
-This avoids counting the same residue multiple times (which would happen if 
-we used all atoms). Focusing on chain A is standard for single-chain protein 
-analysis.
+What I implemented:
+- Function skeleton with residues and window_size parameters
+- Started Kyte-Doolittle scale dictionary
+- **BUG:** Only added 10 amino acids instead of all 20!
+- Missing: ASN, ASP, CYS, GLN, GLU, HIS, LYS, PRO, SER, THR
 
-The function now correctly extracts the amino acid sequence from a PDB file 
-in the proper order, ready for hydrophobicity mapping.
+What's wrong:
+The scale is incomplete - if a protein contains any of the missing amino acids, 
+the code will crash with a KeyError when trying to look up their hydrophobicity 
+values. This makes the function unusable for most real proteins.
 
-Verified: Correctly extracts residues from test PDB file with proper filtering.
+How I noticed:
+Started testing with a real protein (ubiquitin) and immediately got:
+  KeyError: 'ASP'
+Realized I had only transcribed half the table from the reference paper.
+
+Impact:
+Function cannot process proteins with the standard 20 amino acids. This blocks 
+all downstream development and testing.
+
+TODO: Add the remaining 10 amino acids to complete the scale in next commit.
+
+Verified: Partial scale present but incomplete (bug confirmed).
