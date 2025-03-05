@@ -169,17 +169,11 @@ def compute_hydrophobicity(residues, window_size):
                             'LEU': 3.8, 'LYS': -3.9, 'MET': 1.9, 'PHE': 2.8, 'PRO': -1.6,
                             'SER': -0.8, 'THR': -0.7, 'TRP': -0.9, 'TYR': -1.3, 'VAL': 4.2}
 
-    average_values = []
     # create a new list of residues but instead of residue name we put Kyhte doolittle scale values for each residue in original order
     hydrophobicity_values = [Kyte_Doolittle_scale[x] for x in residues]
-
-    # window size re declaration
-    window_size = 3
-
-    # creating window with iteration and calculate the average value and append to average value list
-    for i in range(len(residues) - window_size + 1):
-        window = hydrophobicity_values[i:i + window_size]
-        average_values.append(sum(window) / window_size)
+    
+    # OOPS: Forgot to implement smoothing, just using raw values
+    average_values = hydrophobicity_values
     
     # Calculate average hydrophobicity values using sliding window approach
     # Reference: https://resources.qiagenbioinformatics.com/manuals/clcgenomicsworkbench/2305/index.php?manual=BE_Protein_hydrophobicity.html

@@ -1,33 +1,31 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(calculation): Complete Kyte-Doolittle scale with all 20 amino acids
+Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(calculation): Add compute_hydrophobicity function
 
-✅ HOTFIX: Added the missing 10 amino acids to complete the hydrophobicity scale.
+⚠️ OOPS: Implemented function but forgot to add smoothing logic!
 
-Fixed the incomplete scale by adding all remaining amino acids with their 
-correct Kyte-Doolittle hydrophobicity values.
+Added the hydrophobicity calculation function, but made a critical oversight - 
+the window_size parameter is accepted but not actually used for smoothing.
 
-Added missing amino acids:
-- ASN (Asparagine): -3.5 (hydrophilic)
-- ASP (Aspartic acid): -3.5 (hydrophilic, acidic)
-- CYS (Cysteine): 2.5 (moderately hydrophobic)
-- GLN (Glutamine): -3.5 (hydrophilic)
-- GLU (Glutamic acid): -3.5 (hydrophilic, acidic)
-- HIS (Histidine): -3.2 (hydrophilic)
-- LYS (Lysine): -3.9 (highly hydrophilic, basic)
-- PRO (Proline): -1.6 (hydrophilic)
-- SER (Serine): -0.8 (hydrophilic)
-- THR (Threonine): -0.7 (hydrophilic)
+What I implemented:
+- Map residues to Kyte-Doolittle hydrophobicity values
+- Create hydrophobicity_values list by looking up each residue in the scale
+- Create average_values list (but just copied raw values without smoothing!)
+- Return both lists for plotting
 
-Complete scale now includes all 20 standard amino acids:
-- Hydrophobic (positive): ILE, VAL, LEU, PHE, CYS, MET, ALA
-- Neutral: TRP, GLY
-- Hydrophilic (negative): SER, THR, TYR, PRO, HIS, GLU, GLN, ASP, ASN, LYS, ARG
+What's wrong:
+The function accepts a window_size parameter but ignores it. Instead of 
+calculating sliding window averages, I just assigned the raw values directly 
+to average_values. This defeats the entire purpose of the smoothing feature.
 
-Rationale:
-All 20 standard amino acids must be included for the function to work with real 
-proteins. The Kyte-Doolittle scale is fully defined for these 20 residues, and 
-having an incomplete scale makes the tool unusable.
+How I noticed:
+Ran the function and compared output to expected smoothed values. The resulting 
+plot showed raw noisy data instead of smoothed curves. The values were identical 
+in both lists, which shouldn't happen with smoothing.
 
-Reference: Kyte, J., & Doolittle, R. F. (1982). Journal of Molecular Biology, 
-157(1), 105-132.
+Impact: 
+Users expect smoothed hydrophobicity profiles (which reduce noise and highlight 
+trends), but they're getting raw unsmoothed data. This is a functional bug that 
+needs immediate fixing.
 
-Verified: Scale now complete, function works with all standard amino acids.
+TODO: Add proper sliding window averaging loop in the next commit.
+
+Verified: Function runs without errors, but produces incorrect smoothed output.
