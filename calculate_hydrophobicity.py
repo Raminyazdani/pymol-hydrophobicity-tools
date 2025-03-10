@@ -193,11 +193,7 @@ def compute_hydrophobicity(residues, window_size):
 
 # Main entry point
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python calculate_hydrophobicity.py <pdb_file>")
-        print("Optional: Set HYDROPHOBICITY_OUTPUT_PREFIX environment variable to customize output filenames")
-        sys.exit(1)
-    
+    # OOPS: Forgot to check argv length, will cause IndexError if no arguments
     residues = get_residues(sys.argv[1])
     print(f"Length of residues: {len(residues)}")
     window_sizes = [5, 9]
