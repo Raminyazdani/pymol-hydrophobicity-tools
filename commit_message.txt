@@ -1,32 +1,33 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(cli): Add command-line interface for running calculations
+Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(cli): Fix CLI: add argument validation and usage message
 
-⚠️ OOPS: Added CLI but forgot to validate arguments!
+✅ HOTFIX: Added proper argument checking to prevent IndexError crashes.
 
-Implemented the main entry point to make the script executable from command 
-line, but made a common beginner mistake with argument parsing.
+Fixed the CLI bug by validating sys.argv length before accessing arguments.
 
-What I implemented:
-- Added if __name__ == "__main__": block for script execution
-- Read PDB filename from sys.argv[1]
-- Call get_residues(pdb_file) to extract residues
-- (Planned) Call compute_hydrophobicity for analysis
+What I fixed:
+- Added if len(sys.argv) < 2: validation check
+- Print clear usage message with example: "Usage: python calculate_hydrophobicity.py <pdb_file>"
+- Exit cleanly with sys.exit(1) for invalid usage (standard UNIX convention)
+- Now safely access sys.argv[1] only after validation
 
-What's wrong:
-Accessed sys.argv[1] directly without checking len(sys.argv) first. If a user 
-runs the script without providing a PDB file argument, Python raises:
+Example interaction:
+Before (broken):
+  $ python calculate_hydrophobicity.py
   IndexError: list index out of range
 
-How I noticed:
-Tried to run the script from command line without arguments to see what would 
-happen (expecting a usage message), but it crashed immediately with an unhelpful 
-IndexError before even reaching any of my code.
+After (fixed):
+  $ python calculate_hydrophobicity.py
+  Usage: python calculate_hydrophobicity.py <pdb_file>
+  [exits with code 1]
 
-Impact:
-This makes the tool user-hostile. Instead of getting a helpful "Usage: ..." 
-message, users get a confusing stack trace. This is especially problematic for 
-bioinformatics tools used by researchers who may not be familiar with Python 
-error messages.
+Rationale:
+Robust command-line tools must validate inputs and provide helpful error 
+messages. This is especially important for scientific tools used by researchers 
+who may not be Python experts. Clear usage messages improve usability and reduce 
+support burden.
 
-TODO: Add len(sys.argv) check and print usage message in next commit.
+This follows standard CLI best practices: validate early, fail fast with clear 
+messages, use conventional exit codes (0 for success, 1 for user error).
 
-Verified: Script crashes with IndexError when run without arguments (bug confirmed).
+Verified: Script now displays usage message when run without arguments, exits 
+cleanly without stack traces.
