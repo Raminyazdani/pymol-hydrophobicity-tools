@@ -1,33 +1,28 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(cli): Fix CLI: add argument validation and usage message
+Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(visualization): Add basic matplotlib plotting
 
-✅ HOTFIX: Added proper argument checking to prevent IndexError crashes.
+Implemented basic visualization functionality to generate hydrophobicity plots.
 
-Fixed the CLI bug by validating sys.argv length before accessing arguments.
+Changes:
+- Import matplotlib.pyplot as plt
+- Added plotting code in compute_hydrophobicity() function
+- Create line plot: x-axis = amino acid position (1-indexed)
+- Y-axis = hydrophobicity value
+- Plot hydrophobicity_values as blue line
+- Add axis labels: "Amino Acid Position" and "Hydrophobicity"
+- Save plot to PNG file using OUTPUT_PREFIX
+- Call plt.clf() to clear figure after saving
 
-What I fixed:
-- Added if len(sys.argv) < 2: validation check
-- Print clear usage message with example: "Usage: python calculate_hydrophobicity.py <pdb_file>"
-- Exit cleanly with sys.exit(1) for invalid usage (standard UNIX convention)
-- Now safely access sys.argv[1] only after validation
-
-Example interaction:
-Before (broken):
-  $ python calculate_hydrophobicity.py
-  IndexError: list index out of range
-
-After (fixed):
-  $ python calculate_hydrophobicity.py
-  Usage: python calculate_hydrophobicity.py <pdb_file>
-  [exits with code 1]
+Basic plot features:
+- Simple line graph showing hydrophobicity profile
+- Saved as {OUTPUT_PREFIX}_plot_window{window_size}.png
+- Clear axis labels for readability
 
 Rationale:
-Robust command-line tools must validate inputs and provide helpful error 
-messages. This is especially important for scientific tools used by researchers 
-who may not be Python experts. Clear usage messages improve usability and reduce 
-support burden.
+Visual representation is essential for identifying patterns in protein sequences. 
+The basic plot provides the foundation for hydrophobicity analysis. This initial 
+implementation focuses on core functionality - a clear line plot showing the 
+hydrophobicity values across the protein sequence.
 
-This follows standard CLI best practices: validate early, fail fast with clear 
-messages, use conventional exit codes (0 for success, 1 for user error).
+Next step: Enhance plotting with both raw and smoothed values on same plot.
 
-Verified: Script now displays usage message when run without arguments, exits 
-cleanly without stack traces.
+Verified: Basic plots generated correctly with proper axis labels.
