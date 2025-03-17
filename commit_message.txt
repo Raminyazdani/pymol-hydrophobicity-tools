@@ -1,28 +1,29 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(visualization): Add basic matplotlib plotting
+Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(visualization): Enhance plotting with dual-line visualization
 
-Implemented basic visualization functionality to generate hydrophobicity plots.
+Enhanced the plotting to show both raw and smoothed hydrophobicity values on 
+the same plot for better comparative analysis.
 
 Changes:
-- Import matplotlib.pyplot as plt
-- Added plotting code in compute_hydrophobicity() function
-- Create line plot: x-axis = amino acid position (1-indexed)
-- Y-axis = hydrophobicity value
-- Plot hydrophobicity_values as blue line
-- Add axis labels: "Amino Acid Position" and "Hydrophobicity"
-- Save plot to PNG file using OUTPUT_PREFIX
-- Call plt.clf() to clear figure after saving
+- Plot average_values (smoothed) as thicker blue line (linewidth=2)
+- Plot hydrophobicity_values (raw) as thin red line (linewidth=1, alpha=0.5)
+- Added legend to distinguish the two lines
+- Added title indicating window size used
+- Both series share the same x-axis (amino acid position)
 
-Basic plot features:
-- Simple line graph showing hydrophobicity profile
-- Saved as {OUTPUT_PREFIX}_plot_window{window_size}.png
-- Clear axis labels for readability
+Dual-line benefits:
+- Compare raw data against smoothed trend simultaneously
+- See local variations (raw) and broader patterns (smoothed) together
+- Validate that smoothing is working correctly
+- Understand noise level in the raw data
 
 Rationale:
-Visual representation is essential for identifying patterns in protein sequences. 
-The basic plot provides the foundation for hydrophobicity analysis. This initial 
-implementation focuses on core functionality - a clear line plot showing the 
-hydrophobicity values across the protein sequence.
+Showing both raw and smoothed values helps researchers:
+- Identify if smoothing is appropriate for their analysis
+- Detect outliers and local features that might be lost in smoothing
+- Validate computational results visually
+- Choose appropriate window sizes by seeing the smoothing effect
 
-Next step: Enhance plotting with both raw and smoothed values on same plot.
+This visualization approach is standard in bioinformatics sequence analysis 
+where comparing filtered vs. unfiltered data provides important insights.
 
-Verified: Basic plots generated correctly with proper axis labels.
+Verified: Enhanced plots show both lines with clear distinction and legend.
