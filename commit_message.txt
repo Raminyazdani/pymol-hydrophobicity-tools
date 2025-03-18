@@ -1,29 +1,22 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(visualization): Enhance plotting with dual-line visualization
+Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(analysis): Add single additional window size (window=5)
 
-Enhanced the plotting to show both raw and smoothed hydrophobicity values on 
-the same plot for better comparative analysis.
+Extended the CLI to generate a second plot with window size 5 for comparison.
 
 Changes:
-- Plot average_values (smoothed) as thicker blue line (linewidth=2)
-- Plot hydrophobicity_values (raw) as thin red line (linewidth=1, alpha=0.5)
-- Added legend to distinguish the two lines
-- Added title indicating window size used
-- Both series share the same x-axis (amino acid position)
-
-Dual-line benefits:
-- Compare raw data against smoothed trend simultaneously
-- See local variations (raw) and broader patterns (smoothed) together
-- Validate that smoothing is working correctly
-- Understand noise level in the raw data
+- Added loop to process window_sizes [5]
+- Call compute_hydrophobicity and plot for each window size
+- Generate separate plot: {OUTPUT_PREFIX}_plot_window5.png
+- Keeps existing functionality intact
 
 Rationale:
-Showing both raw and smoothed values helps researchers:
-- Identify if smoothing is appropriate for their analysis
-- Detect outliers and local features that might be lost in smoothing
-- Validate computational results visually
-- Choose appropriate window sizes by seeing the smoothing effect
+Different window sizes reveal different features in protein structure:
+- Small window (3): Shows local hydrophobicity variations
+- Medium window (5): Balances noise reduction with feature preservation
 
-This visualization approach is standard in bioinformatics sequence analysis 
-where comparing filtered vs. unfiltered data provides important insights.
+Generating multiple window sizes allows researchers to compare and choose the 
+most appropriate smoothing level for their analysis goals. This is a first step 
+toward comprehensive multi-window analysis.
 
-Verified: Enhanced plots show both lines with clear distinction and legend.
+Next step: Expand to full range of window sizes (3, 5, 7, 9).
+
+Verified: Two plots generated successfully with different window sizes.
