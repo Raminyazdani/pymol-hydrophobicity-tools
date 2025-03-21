@@ -1,30 +1,17 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(pymol): Start PyMOL visualization script for protein rendering
+Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(pymol): Add basic PyMOL visualization script structure
 
-Started building a PyMOL automation script for standardized protein structure 
-visualization.
+Started building the PyMOL script for protein visualization with essential setup.
 
-Created visualize_protein.pml with basic setup:
-- fetch 1hz6: Download protein structure from PDB database (HIV-1 protease)
-- as cartoon: Display protein in cartoon representation (secondary structure)
-- bg_color white: Set white background for publication-quality rendering
-- remove solvent: Delete water molecules (reduces clutter, focuses on protein)
-- set cartoon_fancy_helices, 1: Enhanced helix rendering with better 3D appearance
+Created visualize_protein.pml with:
+- fetch 1hz6: Download HIV-1 protease structure from PDB
+- as cartoon: Display protein secondary structure
+- bg_color white: White background for publication quality
+- remove solvent: Delete water molecules
 
 Rationale:
-PyMOL scripting automates repetitive visualization tasks, ensuring consistent 
-rendering across multiple proteins. This is essential for:
-- Creating standardized figures for publications and presentations
-- Batch processing multiple structures
-- Reproducible visualization workflows
-- Training and documentation
+PyMOL scripting automates protein visualization workflows. This initial script 
+establishes the foundation with basic protein display and clean rendering setup.
 
-The script will be extended to highlight specific features like ligands, binding 
-sites, and key residues.
+Next step: Add ligand and binding site highlighting.
 
-Starting with basic setup establishes the foundation - clean protein display 
-with water removed and cartoon representation for clarity.
-
-Next steps: Add ligand highlighting, binding site identification, residue 
-coloring, and high-quality rendering export.
-
-Verified: Script loads in PyMOL and displays protein structure correctly.
+Verified: Script loads and displays protein structure correctly in PyMOL.
