@@ -1,17 +1,25 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(pymol): Add basic PyMOL visualization script structure
+Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(pymol): Add complete PyMOL script with rendering options
 
-Started building the PyMOL script for protein visualization with essential setup.
+Enhanced the PyMOL visualization script with ligand highlighting, binding sites, 
+and high-quality rendering configuration.
 
-Created visualize_protein.pml with:
-- fetch 1hz6: Download HIV-1 protease structure from PDB
-- as cartoon: Display protein secondary structure
-- bg_color white: White background for publication quality
-- remove solvent: Delete water molecules
+Complete features:
+- Color organic ligands cyan for visibility
+- Identify binding sites (residues within 5Å of ligands)
+- Color binding site residues grey
+- Highlight tryptophan residues magenta
+- Show ligands and binding sites as sticks
+- Export as PNG with ray-tracing at 300 DPI
+
+Advanced rendering options:
+- set ray_shadows, 0: Clean rendering without shadows
+- set antialias, 2: Smooth edges
+- set orthoscopic, on: Orthographic projection for publication
+- Ray-traced output: protein_visualization.png
 
 Rationale:
-PyMOL scripting automates protein visualization workflows. This initial script 
-establishes the foundation with basic protein display and clean rendering setup.
+Publication-quality figures require careful rendering settings. These enhancements 
+provide comprehensive visualization showing ligands, binding sites, and key 
+residues with professional appearance suitable for scientific publications.
 
-Next step: Add ligand and binding site highlighting.
-
-Verified: Script loads and displays protein structure correctly in PyMOL.
+Verified: Script generates high-quality rendered images with all features.
