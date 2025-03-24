@@ -1,25 +1,32 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(pymol): Add complete PyMOL script with rendering options
+Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(extension): Start PyMOL extension for interactive hydrophobicity coloring
 
-Enhanced the PyMOL visualization script with ligand highlighting, binding sites, 
-and high-quality rendering configuration.
+⚠️ OOPS: Started extension but used wrong module name in import!
 
-Complete features:
-- Color organic ligands cyan for visibility
-- Identify binding sites (residues within 5Å of ligands)
-- Color binding site residues grey
-- Highlight tryptophan residues magenta
-- Show ligands and binding sites as sticks
-- Export as PNG with ray-tracing at 300 DPI
+Created the PyMOL extension framework for interactive hydrophobicity coloring, 
+but made a typo in the import statement.
 
-Advanced rendering options:
-- set ray_shadows, 0: Clean rendering without shadows
-- set antialias, 2: Smooth edges
-- set orthoscopic, on: Orthographic projection for publication
-- Ray-traced output: protein_visualization.png
+What I implemented:
+- Created hydrophobicity_pymol.py and hydrophobicity_pymol_template.py
+- Added @cmd.extend decorator to register function in PyMOL namespace
+- Defined hydrophobicity(selection, palette, window_size) function signature
+- Added Kyte-Doolittle scale dictionary (same as CLI tool)
+- Planned to import get_residues from calculate_hydrophobicity module
 
-Rationale:
-Publication-quality figures require careful rendering settings. These enhancements 
-provide comprehensive visualization showing ligands, binding sites, and key 
-residues with professional appearance suitable for scientific publications.
+What's wrong:
+Used "from calculate_hydro import get_residues" but the actual module is named 
+"calculate_hydrophobicity" (missing the "phobicity" part). This is a simple 
+typo - I abbreviated the module name while typing from memory.
 
-Verified: Script generates high-quality rendered images with all features.
+How I noticed:
+Tried to load the extension in PyMOL with "run hydrophobicity_pymol.py" and 
+immediately got:
+  ModuleNotFoundError: No module named 'calculate_hydro'
+
+Impact:
+Extension fails to load completely. Users can't use the interactive hydrophobicity 
+coloring feature until the import is fixed. This blocks all testing and usage 
+of the extension.
+
+TODO: Fix import to use correct module name "calculate_hydrophobicity" in next commit.
+
+Verified: Import error confirmed when attempting to load in PyMOL.
