@@ -1,5 +1,5 @@
 from pymol import cmd, stored
-
+from calculate_hydrophobicity import get_residues
 
 @cmd.extend
 def hydrophobicity(selection="all", palette='blue_red', window=1, _self=cmd):
