@@ -1,22 +1,25 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(extension): Add smooth_values helper function (basic)
+Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(extension): Optimize smooth_values with edge case handling
 
-Added initial implementation of smoothing functionality for the PyMOL extension.
+Enhanced the smooth_values function with better edge case handling and 
+performance optimizations.
 
-Implemented smooth_values() helper function:
-- Takes list of hydrophobicity values and window_size parameter
-- Uses sliding window averaging algorithm
-- For each position, averages values within the window
+Improvements:
+- Better handling when window extends beyond list end
+- More efficient window calculation
+- Validation for edge cases (empty lists, window_size=1, etc.)
+- Code optimization for large protein sequences
 
-Basic implementation:
-- Simple loop through values
-- Window slicing: values[i:i+window_size]
-- Average calculation: sum(window) / len(window)
-- Returns smoothed list
+Edge cases handled:
+- window_size = 1: Return original values (no smoothing needed)
+- Empty input list: Return empty list
+- Window extends beyond end: Handle gracefully with available values
 
 Rationale:
-Smoothing is essential for the PyMOL extension to match the CLI tool's 
-functionality. This initial implementation provides the core algorithm.
+The extension will be used with various proteins and parameter combinations. 
+Robust edge case handling ensures the extension works reliably across all 
+usage scenarios without crashes or unexpected behavior.
 
-Next step: Optimize for edge cases and performance.
+This matches the CLI tool's smoothing implementation, ensuring consistent 
+results between batch analysis and interactive visualization.
 
-Verified: Function correctly averages values with various window sizes.
+Verified: Function handles all edge cases correctly, optimized performance tested.
