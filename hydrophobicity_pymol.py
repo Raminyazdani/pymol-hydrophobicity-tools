@@ -29,9 +29,7 @@ def hydrophobicity(selection="all", palette='blue_red', window=1, _self=cmd):
         raise ValueError(f"window must be an integer not {window},type {type(window)}")
     # assertion of odd
     assert window % 2 == 1
-    # check the pallete exist in pallete documentation : https://pymolwiki.org/index.php/Palette_Colorbars
-    assert palette in ["blue_green", "blue_magenta", "blue_red", "blue_white_green", "blue_white_magenta", "rainbow",
-                       "red_blue"]
+    # OOPS: No palette validation - will cause error if user provides invalid palette name
 
     Kyte_Doolittle_scale = {'ALA': 1.8, 'ARG': -4.5, 'ASN': -3.5, 'ASP': -3.5, 'CYS': 2.5,
                             'GLN': -3.5, 'GLU': -3.5, 'GLY': -0.4, 'HIS': -3.2, 'ILE': 4.5,

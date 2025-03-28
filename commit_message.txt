@@ -1,25 +1,34 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(extension): Optimize smooth_values with edge case handling
+Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(extension): Add color palette parameter to hydrophobicity function
 
-Enhanced the smooth_values function with better edge case handling and 
-performance optimizations.
+⚠️ OOPS: Added palette parameter but forgot to validate it!
 
-Improvements:
-- Better handling when window extends beyond list end
-- More efficient window calculation
-- Validation for edge cases (empty lists, window_size=1, etc.)
-- Code optimization for large protein sequences
+Enhanced the extension with color palette support, but overlooked input validation.
 
-Edge cases handled:
-- window_size = 1: Return original values (no smoothing needed)
-- Empty input list: Return empty list
-- Window extends beyond end: Handle gracefully with available values
+What I implemented:
+- Added palette parameter to hydrophobicity() function signature
+- Palette will be used with PyMOL's spectrum command for color gradients
+- Intended to support PyMOL palettes like blue_white_red, rainbow, etc.
+- Parameter gets passed directly to PyMOL coloring commands
 
-Rationale:
-The extension will be used with various proteins and parameter combinations. 
-Robust edge case handling ensures the extension works reliably across all 
-usage scenarios without crashes or unexpected behavior.
+What's wrong:
+No validation that the palette name is actually a valid PyMOL palette. Users 
+can pass any string (e.g., "rainbow2", "blue_yellow", "custom_palette") and 
+the extension will accept it, then fail later with a cryptic PyMOL error:
+  Error: Unknown palette 'rainbow2'
+  
+The error message doesn't clearly explain what palettes ARE valid or how to 
+fix the issue.
 
-This matches the CLI tool's smoothing implementation, ensuring consistent 
-results between batch analysis and interactive visualization.
+How I noticed:
+While testing different palette names, I mistyped "blue_white_green" as 
+"blue_green" and got a confusing error message from PyMOL's internal code. 
+Realized users would face the same frustration without knowing valid options.
 
-Verified: Function handles all edge cases correctly, optimized performance tested.
+Impact:
+Poor user experience - users get cryptic errors instead of helpful messages. 
+Without validation, there's no way to know which palette names are valid 
+without consulting PyMOL documentation.
+
+TODO: Add palette name validation with clear error message listing valid options.
+
+Verified: Function accepts palette parameter but allows invalid values (bug confirmed).
