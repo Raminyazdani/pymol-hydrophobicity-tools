@@ -1,34 +1,34 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | WIP(extension): Add color palette parameter to hydrophobicity function
+Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(extension): Fix palette validation in PyMOL extension
 
-⚠️ OOPS: Added palette parameter but forgot to validate it!
+✅ HOTFIX: Added palette name validation to prevent cryptic errors.
 
-Enhanced the extension with color palette support, but overlooked input validation.
+Fixed the palette validation bug by adding an assertion that checks the palette 
+parameter against a list of valid PyMOL palettes before attempting to use it.
 
-What I implemented:
-- Added palette parameter to hydrophobicity() function signature
-- Palette will be used with PyMOL's spectrum command for color gradients
-- Intended to support PyMOL palettes like blue_white_red, rainbow, etc.
-- Parameter gets passed directly to PyMOL coloring commands
+What I fixed:
+- Added assert statement checking palette against valid_palettes list
+- Valid palettes: blue_green, blue_magenta, blue_red, blue_white_green, 
+  blue_white_magenta, blue_white_red, rainbow, red_blue
+- Assertion provides clear error message listing all valid options
+- Validation happens early, before any PyMOL commands execute
 
-What's wrong:
-No validation that the palette name is actually a valid PyMOL palette. Users 
-can pass any string (e.g., "rainbow2", "blue_yellow", "custom_palette") and 
-the extension will accept it, then fail later with a cryptic PyMOL error:
-  Error: Unknown palette 'rainbow2'
-  
-The error message doesn't clearly explain what palettes ARE valid or how to 
-fix the issue.
+Example error message (fixed):
+Before: "Error: Unknown palette 'rainbow2'" (cryptic PyMOL internal error)
+After: "AssertionError: Invalid palette 'rainbow2'. Valid options: blue_green, 
+blue_magenta, blue_red, blue_white_green, blue_white_magenta, blue_white_red, 
+rainbow, red_blue"
 
-How I noticed:
-While testing different palette names, I mistyped "blue_white_green" as 
-"blue_green" and got a confusing error message from PyMOL's internal code. 
-Realized users would face the same frustration without knowing valid options.
+Rationale:
+Input validation is crucial for good user experience, especially with domain-
+specific parameters that have limited valid values. The improved error message:
+- Clearly states the problem (invalid palette)
+- Lists all valid options (helps users choose correctly)
+- Fails immediately before wasting time on computations
+- Prevents confusing internal PyMOL errors
 
-Impact:
-Poor user experience - users get cryptic errors instead of helpful messages. 
-Without validation, there's no way to know which palette names are valid 
-without consulting PyMOL documentation.
+This follows the "fail fast" principle - validate inputs early with clear 
+messages rather than letting invalid data propagate to cryptic downstream errors.
 
-TODO: Add palette name validation with clear error message listing valid options.
+Reference for palette names: https://pymolwiki.org/index.php/Palette_Colorbars
 
-Verified: Function accepts palette parameter but allows invalid values (bug confirmed).
+Verified: Invalid palettes now raise clear assertion error with valid options listed.
