@@ -1,34 +1,26 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(extension): Fix palette validation in PyMOL extension
+Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(extension): Add basic PyMOL extension with residue extraction
 
-✅ HOTFIX: Added palette name validation to prevent cryptic errors.
+Started building the complete PyMOL extension for interactive hydrophobicity 
+visualization with focus on data extraction and preparation.
 
-Fixed the palette validation bug by adding an assertion that checks the palette 
-parameter against a list of valid PyMOL palettes before attempting to use it.
+Implemented initial functionality:
+- Define hydrophobicity() function with @cmd.extend decorator
+- Parameters: selection, palette, window_size
+- Extract residues from PyMOL selection using iterate command
+- Map each residue to Kyte-Doolittle hydrophobicity values
+- Apply smoothing if window_size > 1
 
-What I fixed:
-- Added assert statement checking palette against valid_palettes list
-- Valid palettes: blue_green, blue_magenta, blue_red, blue_white_green, 
-  blue_white_magenta, blue_white_red, rainbow, red_blue
-- Assertion provides clear error message listing all valid options
-- Validation happens early, before any PyMOL commands execute
-
-Example error message (fixed):
-Before: "Error: Unknown palette 'rainbow2'" (cryptic PyMOL internal error)
-After: "AssertionError: Invalid palette 'rainbow2'. Valid options: blue_green, 
-blue_magenta, blue_red, blue_white_green, blue_white_magenta, blue_white_red, 
-rainbow, red_blue"
+Data extraction approach:
+- Use PyMOL's iterate command to get residue codes from selection
+- Build list of 3-letter amino acid codes
+- Map to hydrophobicity scale
+- Prepare smoothed values for coloring
 
 Rationale:
-Input validation is crucial for good user experience, especially with domain-
-specific parameters that have limited valid values. The improved error message:
-- Clearly states the problem (invalid palette)
-- Lists all valid options (helps users choose correctly)
-- Fails immediately before wasting time on computations
-- Prevents confusing internal PyMOL errors
+The extension needs to extract protein data from PyMOL's internal structure 
+before applying hydrophobicity analysis. This initial implementation focuses 
+on data extraction and preparation, establishing the foundation for coloring.
 
-This follows the "fail fast" principle - validate inputs early with clear 
-messages rather than letting invalid data propagate to cryptic downstream errors.
+Next step: Add B-factor storage mechanism.
 
-Reference for palette names: https://pymolwiki.org/index.php/Palette_Colorbars
-
-Verified: Invalid palettes now raise clear assertion error with valid options listed.
+Verified: Extension extracts residues and calculates hydrophobicity correctly.
