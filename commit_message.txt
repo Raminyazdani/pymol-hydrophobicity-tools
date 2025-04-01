@@ -1,26 +1,27 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(extension): Add basic PyMOL extension with residue extraction
+Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(extension): Add B-factor storage for hydrophobicity values
 
-Started building the complete PyMOL extension for interactive hydrophobicity 
-visualization with focus on data extraction and preparation.
+Built out the data storage infrastructure using PyMOL's B-factor field to 
+prepare for gradient coloring.
 
-Implemented initial functionality:
-- Define hydrophobicity() function with @cmd.extend decorator
-- Parameters: selection, palette, window_size
-- Extract residues from PyMOL selection using iterate command
-- Map each residue to Kyte-Doolittle hydrophobicity values
-- Apply smoothing if window_size > 1
+Implemented B-factor storage:
+- Store hydrophobicity values in B-factor field for each residue
+- Use PyMOL's alter command: alter {selection}, b={value}
+- One value per residue (stored in corresponding CA atom)
+- Values preserved for subsequent spectrum coloring command
 
-Data extraction approach:
-- Use PyMOL's iterate command to get residue codes from selection
-- Build list of 3-letter amino acid codes
-- Map to hydrophobicity scale
-- Prepare smoothed values for coloring
+B-factor storage strategy:
+PyMOL's B-factor field is perfect for custom per-residue values because:
+- One value per atom (can be averaged per residue)
+- Accessible to PyMOL's coloring commands (spectrum, color b)
+- Standard approach for custom residue-level data
+- Preserved across PyMOL sessions
 
 Rationale:
-The extension needs to extract protein data from PyMOL's internal structure 
-before applying hydrophobicity analysis. This initial implementation focuses 
-on data extraction and preparation, establishing the foundation for coloring.
+Using B-factors is the standard method for custom coloring in PyMOL. This 
+approach is well-documented, efficient, and compatible with PyMOL's built-in 
+spectrum command. Storing values first, then coloring separately, follows a 
+clean separation of concerns.
 
-Next step: Add B-factor storage mechanism.
+Next step: Add spectrum coloring command to visualize the stored values.
 
-Verified: Extension extracts residues and calculates hydrophobicity correctly.
+Verified: B-factors set correctly, values retrievable via PyMOL commands.
