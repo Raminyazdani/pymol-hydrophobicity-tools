@@ -1,32 +1,44 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(testing): Add basic unit test fixtures
+Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(testing): Add pytest unit tests for get_residues and compute_hydrophobicity
 
-Set up the testing infrastructure with pytest fixtures for creating test PDB files.
+Implemented comprehensive unit test suite to ensure correctness of core 
+functionality and prevent regressions.
 
-Implemented test fixtures:
-- @pytest.fixture temp_pdb_file: Creates temporary PDB file for testing
-- Generates realistic PDB format with ATOM records
-- Includes chain A with CA (alpha carbon) atoms
-- Test sequence: MET, GLY, ALA (3 residues)
-- Proper PDB column formatting (fixed-width fields)
-- Automatic cleanup using tempfile module
+Test suite includes:
+- Created test_calculate_hydrophobicity.py with pytest framework
+- Fixtures for creating temporary test PDB files with known residue sequences
+- test_get_residues(): Validates residue extraction from PDB files
+  * Verifies correct residue sequence extraction
+  * Confirms CA atom filtering works correctly
+  * Tests chain A filtering
+- test_compute_hydrophobicity(): Validates hydrophobicity calculations
+  * Tests correct mapping of residues to Kyte-Doolittle values
+  * Verifies raw hydrophobicity value accuracy
+  * Validates smoothing algorithm with different window sizes
 
-PDB test data structure:
-- Line 1: ATOM record for MET CA at position 1
-- Line 2: ATOM record for GLY CA at position 2
-- Line 3: ATOM record for ALA CA at position 3
-- Includes coordinates, occupancy, B-factor fields
+Running tests:
+```bash
+pip install pytest
+pytest test_calculate_hydrophobicity.py -v
+```
+
+Expected output:
+- test_get_residues: PASSED
+- test_compute_hydrophobicity: PASSED
 
 Rationale:
-Testing requires realistic test data that matches actual PDB format. The fixture 
-approach provides:
-- Reusable test data across multiple test functions
-- Automatic file cleanup after tests complete
-- Isolation between tests (fresh file each time)
-- Realistic PDB format for validating parsing code
+Unit tests are essential for scientific software where accuracy is critical. 
+Tests provide:
+- Confidence in correctness of calculations
+- Protection against regressions when refactoring
+- Documentation of expected behavior
+- Validation that Kyte-Doolittle values are correctly mapped
+- Verification that smoothing algorithm works as intended
 
-Using pytest fixtures follows best practices for test organization and makes 
-tests more maintainable.
+Tests use realistic PDB format data to validate actual usage patterns. The 
+fixtures create temporary PDB files with known sequences, allowing deterministic 
+validation of output.
 
-Next step: Add actual test functions using these fixtures.
+This follows best practices for scientific computing: computational results 
+must be verifiable and reproducible through automated testing.
 
-Verified: Fixtures generate valid temporary PDB files with correct format.
+Verified: All tests pass, functions behave correctly with known input/output pairs.
