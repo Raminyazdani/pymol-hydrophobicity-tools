@@ -1,44 +1,38 @@
-Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(testing): Add pytest unit tests for get_residues and compute_hydrophobicity
+Ramin Yazdani | pymol-hydrophobicity-tools | main | feat(docs): Add project identity and branding documentation
 
-Implemented comprehensive unit test suite to ensure correctness of core 
-functionality and prevent regressions.
+Created professional project identity documentation for portfolio presentation.
 
-Test suite includes:
-- Created test_calculate_hydrophobicity.py with pytest framework
-- Fixtures for creating temporary test PDB files with known residue sequences
-- test_get_residues(): Validates residue extraction from PDB files
-  * Verifies correct residue sequence extraction
-  * Confirms CA atom filtering works correctly
-  * Tests chain A filtering
-- test_compute_hydrophobicity(): Validates hydrophobicity calculations
-  * Tests correct mapping of residues to Kyte-Doolittle values
-  * Verifies raw hydrophobicity value accuracy
-  * Validates smoothing algorithm with different window sizes
+Created project_identity.md with complete branding:
+- Display title: "PyMOL Hydrophobicity Tools"
+- Repository slug: pymol-hydrophobicity-tools
+- Tagline: "Protein hydrophobicity analysis and visualization toolkit for PyMOL"
+- Comprehensive GitHub description covering all three tools
+- Primary stack: Python 3.x, PyMOL, BioPython, Matplotlib, NumPy
+- 10 relevant topics/keywords: pymol, protein-analysis, hydrophobicity, 
+  kyte-doolittle, bioinformatics, structural-biology, protein-visualization, 
+  computational-biology, python, bioinformatics-tool
 
-Running tests:
-```bash
-pip install pytest
-pytest test_calculate_hydrophobicity.py -v
-```
+Problem & Approach section:
+- Clear problem statement (why hydrophobicity analysis matters)
+- Description of the three integrated tools
+- Explanation of approach and methodology
 
-Expected output:
-- test_get_residues: PASSED
-- test_compute_hydrophobicity: PASSED
+Inputs & Outputs documentation:
+- Lists all input types (PDB files, chain selections, window sizes, etc.)
+- Lists all output types (PNG visualizations, plots, PyMOL sessions, values)
 
 Rationale:
-Unit tests are essential for scientific software where accuracy is critical. 
-Tests provide:
-- Confidence in correctness of calculations
-- Protection against regressions when refactoring
-- Documentation of expected behavior
-- Validation that Kyte-Doolittle values are correctly mapped
-- Verification that smoothing algorithm works as intended
+Project identity documentation establishes the repository as a professional 
+portfolio piece by:
+- Providing clear branding and positioning
+- Explaining the project's value proposition
+- Using appropriate technical terminology
+- Positioning the tools in the bioinformatics domain
 
-Tests use realistic PDB format data to validate actual usage patterns. The 
-fixtures create temporary PDB files with known sequences, allowing deterministic 
-validation of output.
+This documentation serves as the foundation for README content and helps 
+potential employers/collaborators quickly understand the project scope and 
+technical stack.
 
-This follows best practices for scientific computing: computational results 
-must be verifiable and reproducible through automated testing.
+Next step: Create comprehensive README based on this identity.
 
-Verified: All tests pass, functions behave correctly with known input/output pairs.
+Verified: project_identity.md contains complete, professional branding information.
