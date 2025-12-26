@@ -13,9 +13,6 @@ build/
 *.png
 *.pse
 
-# Git historian artifacts (not part of project)
-history/
-
 # IDE
 .vscode/
 .idea/
