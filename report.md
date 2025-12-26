@@ -323,6 +323,162 @@ The transformation maintains full backward compatibility while presenting the pr
 
 **Transformation Date:** December 26, 2024  
 **Status:** ✓ COMPLETE - All phases finished, all deliverables verified
+
+---
+
+## Phase 5 - Step-Expanded Git Historian (Current Run - December 26, 2024)
+
+### 5.1 History Expansion Metrics
+
+**Step Count Analysis:**
+- N_old (previous run): 10 (from earlier historian generation documented above)
+- N_target (this run): 15 (ceil(10 * 1.5) = 15, meets minimum 1.5× expansion requirement)
+- Achieved multiplier: 1.5× (15 / 10 = 1.5)
+
+**Expansion Strategy Applied:**
+This expansion used BOTH required strategies:
+
+1. **Strategy A - Split Large Steps:**
+   - Old step 04 (hydrophobicity calculation) → New steps 04-05 (scale + calculation)
+   - Old step 05 (CLI) → New steps 06-07 (CLI bug + hotfix)
+   - Old step 08 (plotting + multiple windows) → New steps 08-09 (plotting + multiple windows)
+
+2. **Strategy B - Insert Oops→Hotfix Pairs (2 pairs):**
+   - Steps 06→07: CLI argument validation bug and fix
+   - Steps 11→12: PyMOL extension import error and fix
+
+### 5.2 Historian Artifacts Created
+
+**Primary Documentation:**
+- `history/github_steps.md` - Complete narrative with 15 steps, including:
+  - History expansion note with N_old, N_target, and multiplier
+  - Detailed descriptions of both oops→hotfix pairs
+  - Step-by-step development timeline
+
+**Snapshot Directories:**
+- `history/steps/step_01/` - Initial repository setup
+- `history/steps/step_02/` - PDB parser utility class (RaminCalc)
+- `history/steps/step_03/` - Residue extraction function
+- `history/steps/step_04/` - Kyte-Doolittle hydrophobicity scale
+- `history/steps/step_05/` - Basic hydrophobicity calculation
+- `history/steps/step_06/` - CLI with argument bug (OOPS)
+- `history/steps/step_07/` - CLI argument fix (HOTFIX)
+- `history/steps/step_08/` - Matplotlib plotting functionality
+- `history/steps/step_09/` - Multiple window sizes support
+- `history/steps/step_10/` - PyMOL visualization script
+- `history/steps/step_11/` - PyMOL extension with import bug (OOPS)
+- `history/steps/step_12/` - PyMOL extension import fix (HOTFIX)
+- `history/steps/step_13/` - Complete PyMOL extension features
+- `history/steps/step_14/` - Unit tests added
+- `history/steps/step_15/` - Final portfolio polish and documentation
+
+### 5.3 Oops→Hotfix Pairs Documentation
+
+**Pair 1: CLI Argument Validation (Steps 6→7)**
+- **What broke:** Used `pdb_file = sys.argv[1]` without checking sys.argv length first
+- **How noticed:** Script crashes with IndexError when run without command-line arguments
+- **What fixed:** Added `if len(sys.argv) < 2:` validation with usage message and proper exit
+- **Plausibility:** Very common mistake when adding CLI functionality, especially for developers new to Python
+
+**Pair 2: PyMOL Extension Import (Steps 11→12)**
+- **What broke:** Used `from calculate_hydro import get_residues` (wrong module name)
+- **How noticed:** Extension failed to load in PyMOL with "ModuleNotFoundError: No module named 'calculate_hydro'"
+- **What fixed:** Corrected import to `from calculate_hydrophobicity import get_residues`
+- **Plausibility:** Typo in module name is realistic, especially when typing quickly or from memory
+
+### 5.4 Snapshot Compliance Verification
+
+✓ **Exclusions verified:**
+- All snapshots exclude `.git/` directory
+- All snapshots exclude `history/` directory (no recursion)
+- All snapshots exclude `__pycache__/` and `.pytest_cache/`
+- All snapshots exclude `*.png` files (generated outputs)
+
+✓ **Final state match:**
+- step_15 matches current repository state exactly
+- Verified with `diff -r` (no differences found)
+- All portfolio files present (README.md, project_identity.md, report.md, suggestion.txt, suggestions_done.txt)
+- All source files present and identical
+
+✓ **Snapshot type:**
+- Each step is a COMPLETE snapshot (not a diff)
+- Each step is independently usable
+- Progressive addition of files across steps
+
+### 5.5 Verification Commands and Results
+
+**Test suite execution:**
+```bash
+cd /home/runner/work/pymol-hydrophobicity-tools/pymol-hydrophobicity-tools
+pip install pytest
+pip install -r requirements.txt
+python -m pytest test_calculate_hydrophobicity.py -v
+```
+
+**Results:**
+```
+test_calculate_hydrophobicity.py::test_get_residues PASSED [50%]
+test_calculate_hydrophobicity.py::test_compute_hydrophobicity FAILED [100%]
+```
+
+- 1 test passing (test_get_residues)
+- 1 test failing with pre-existing issue (test_compute_hydrophobicity expects return value, but function returns None)
+- Pre-existing failure documented in original report.md; not related to historian work
+- Per instructions: "Ignore unrelated bugs or broken tests"
+
+**Snapshot verification:**
+```bash
+diff -r --exclude='.git' --exclude='history' --exclude='__pycache__' \
+  --exclude='.pytest_cache' --exclude='*.png' --exclude='.github' \
+  . history/steps/step_15/
+```
+
+**Result:** No differences (exit code 0) - step_15 matches final state exactly
+
+### 5.6 Development Timeline Realism
+
+The 15-step timeline represents plausible real-world development:
+
+1. **Foundation first** (steps 01-03): Setup, parser, extractor
+2. **Core algorithm** (steps 04-05): Scale data, calculation logic
+3. **User interface** (steps 06-09): CLI (with bug fix), plotting, multi-window
+4. **Visualization tools** (steps 10-13): PyMOL script, extension (with bug fix), features
+5. **Quality & documentation** (steps 14-15): Tests, portfolio polish
+
+**Realistic elements:**
+- Incremental feature addition (not big-bang development)
+- Two mistakes caught and fixed immediately (realistic developer workflow)
+- Testing added after core features stable (common practice)
+- Documentation polished last (typical for portfolio preparation)
+
+---
+
+## Final Checklist (Phase 5 Completion)
+
+✓ **Portfolio Deliverables:**
+- [x] project_identity.md complete and aligned with README
+- [x] README.md portfolio-grade and accurate
+- [x] suggestion.txt contains findings with final statuses
+- [x] suggestions_done.txt contains all applied changes with before/after + locators
+- [x] Repo runs (1/2 tests passing, 1 pre-existing failure documented)
+
+✓ **Historian Deliverables:**
+- [x] history/github_steps.md complete with History Expansion Note
+- [x] history/steps contains step_01..step_15 (sequential integers)
+- [x] N_new = 15 >= ceil(N_old * 1.5) = ceil(10 * 1.5) = 15 ✓
+- [x] step_15 matches final working tree exactly (excluding history/)
+- [x] No snapshot includes history/ or .git/
+- [x] At least 2 oops→hotfix pairs included
+- [x] Both expansion strategies used (split steps + insert mistakes)
+
+✓ **Verification:**
+- [x] Tests run successfully (1/2 passing, 1 pre-existing failure)
+- [x] Verification commands documented in report.md
+- [x] Snapshot compliance verified with diff command
+- [x] No secrets added
+- [x] No fabricated datasets
+
+**Status:** ✓ COMPLETE - All Phase 5 requirements met, all deliverables verified
 ## Phase 4 - Git Historian (COMPLETED)
 
 ### 4.1 Created History Artifacts
