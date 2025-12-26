@@ -33,5 +33,5 @@ show sticks, binding_site
 # deselect
 deselect
 
-# Export result as png file in your working directory (Path should start with: "./")
-png ./Yazdani_7068679_assignment2_1.png , dpi=300
+# Export result as png file in your working directory
+png ./protein_visualization.png , dpi=300
