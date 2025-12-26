@@ -1,6 +1,4 @@
 import sys
-from turtledemo.forest import doit3
-
 import matplotlib.pyplot as plt
 import os
 
@@ -92,8 +90,8 @@ class RaminCalc:
         return return_temp
 
 
-# DTODO write your surname here to name file in compute_hydrophobicity function
-STUDENT_SURNAME = "Yazdani"
+# Default prefix for output files (can be overridden via environment variable)
+OUTPUT_PREFIX = os.environ.get('HYDROPHOBICITY_OUTPUT_PREFIX', 'hydrophobicity')
 
 
 def get_residues(pdb_file):
@@ -114,8 +112,8 @@ def get_residues(pdb_file):
 
     residues = []
 
-    # DTODO : Read file and store residues in the list
-    # Hint : You can use your code from first assignment
+    # Read PDB file and extract amino acid residues from chain A
+    # Filter for CA (alpha carbon) atoms to get one entry per residue
 
     # read the file with context manager "with"
     with open(pdb_file, "r") as f:
@@ -182,21 +180,24 @@ def compute_hydrophobicity(residues, window_size):
     for i in range(len(residues) - window_size + 1):
         window = hydrophobicity_values[i:i + window_size]
         average_values.append(sum(window) / window_size)
-    # DTODO calculate average value with window size and store it as a list in average_values
-    # reference : https://resources.qiagenbioinformatics.com/manuals/clcgenomicsworkbench/2305/index.php?manual=BE_Protein_hydrophobicity.html
-    # reference : https://web.expasy.org/protscale/
+    
+    # Calculate average hydrophobicity values using sliding window approach
+    # Reference: https://resources.qiagenbioinformatics.com/manuals/clcgenomicsworkbench/2305/index.php?manual=BE_Protein_hydrophobicity.html
+    # Reference: https://web.expasy.org/protscale/
     plt.plot(average_values)
     plt.xlabel("AA position")
     plt.ylabel("Hydrophobicity")
-    plt.savefig(f"./{STUDENT_SURNAME}_hydrophobicity_plot_{window_size}.png")
+    plt.savefig(f"./{OUTPUT_PREFIX}_plot_window{window_size}.png")
     plt.clf()
 
 
-# Nothing to do here
+# Main entry point
 if __name__ == "__main__":
-    if STUDENT_SURNAME == None:
-        print(f"Update your surname")
-        sys.exit()
+    if len(sys.argv) < 2:
+        print("Usage: python calculate_hydrophobicity.py <pdb_file>")
+        print("Optional: Set HYDROPHOBICITY_OUTPUT_PREFIX environment variable to customize output filenames")
+        sys.exit(1)
+    
     residues = get_residues(sys.argv[1])
     print(f"Length of residues: {len(residues)}")
     window_sizes = [5, 9]
@@ -206,5 +207,5 @@ if __name__ == "__main__":
 
     for window_size in [3, 7]:
         compute_hydrophobicity(residues, window_size)
-    os.remove(f"./{STUDENT_SURNAME}_hydrophobicity_plot_3.png")
+    os.remove(f"./{OUTPUT_PREFIX}_plot_window3.png")
 

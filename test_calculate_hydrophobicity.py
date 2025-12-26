@@ -1,5 +1,5 @@
 import pytest
-from assignment2_2_template import get_residues, compute_hydrophobicity, STUDENT_SURNAME
+from calculate_hydrophobicity import get_residues, compute_hydrophobicity
 import os
 import matplotlib.pyplot as plt
 

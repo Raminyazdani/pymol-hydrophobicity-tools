@@ -38,9 +38,9 @@ def hydrophobicity(selection="all", palette='blue_red', window=1, _self=cmd):
                             'LEU': 3.8, 'LYS': -3.9, 'MET': 1.9, 'PHE': 2.8, 'PRO': -1.6,
                             'SER': -0.8, 'THR': -0.7, 'TRP': -0.9, 'TYR': -1.3, 'VAL': 4.2}
 
-    # DTODO Write a PyMOL extension that will colour each residue in a given PyMOL selection according to the Kyte-Doolittle scale. The extension has to be imported
-    # into PyMOL with run script.py from the PyMOL command line, and has to be
-    # launchable with the hydrophobicity [, selection [, palette]] from inside PyMOL. Refer to the PyMOL wiki and provided code snippet for guidance
+    # Color each residue in the PyMOL selection according to the Kyte-Doolittle hydrophobicity scale
+    # The extension can be imported into PyMOL with: run hydrophobicity_pymol.py
+    # Then launched with: hydrophobicity [, selection [, palette [, window]]]
 
     try:
         stored.items = []
