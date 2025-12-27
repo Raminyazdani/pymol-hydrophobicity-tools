@@ -1,0 +1,20 @@
+TYPE	FILE	LOCATOR	BEFORE_SNIPPET	PROPOSED_CHANGE	RATIONALE	STATUS
+RENAME	Yazdani_7068679_assignment2_3.py	filename	Yazdani_7068679_assignment2_3.py	hydrophobicity_pymol.py	Remove student name/ID; use descriptive professional name	APPLIED
+RENAME	assignment2_1_template.pml	filename	assignment2_1_template.pml	visualize_protein.pml	Remove assignment reference; use descriptive name	APPLIED
+RENAME	assignment2_2_template.py	filename	assignment2_2_template.py	calculate_hydrophobicity.py	Remove assignment/template reference; use descriptive name	APPLIED
+RENAME	assignment2_3_template.py	filename	assignment2_3_template.py	hydrophobicity_pymol_template.py	Remove assignment reference; keep template for users who want base version	APPLIED
+RENAME	test_assignment2_2.py	filename	test_assignment2_2.py	test_calculate_hydrophobicity.py	Align test name with renamed module	APPLIED
+TRACE	README.md	lines 1-46	Full content is assignment instructions	Rewrite as professional project documentation	README contains assignment exercises, theoretical questions, grading rubric	APPLIED
+TRACE	calculate_hydrophobicity.py	line 2	from turtledemo.forest import doit3	Remove unused import	Dead import, not used anywhere in code	APPLIED
+TRACE	calculate_hydrophobicity.py	line 96	STUDENT_SURNAME = "Yazdani"	Replace with configurable output prefix or remove	Hardcoded student name for file output	APPLIED
+TRACE	calculate_hydrophobicity.py	line 95	# DTODO write your surname here	Remove comment or make generic	Assignment-specific comment	APPLIED
+TRACE	calculate_hydrophobicity.py	line 117	# DTODO : Read file and store residues	Remove DTODO, keep descriptive comment	Assignment marker in comment	APPLIED
+TRACE	calculate_hydrophobicity.py	line 118	# Hint : You can use your code from first assignment	Remove comment	References previous assignment	APPLIED
+TRACE	calculate_hydrophobicity.py	line 185	# DTODO calculate average value	Remove DTODO, keep descriptive comment	Assignment marker in comment	APPLIED
+TRACE	hydrophobicity_pymol_template.py	line 41	# DTODO Write a PyMOL extension...	Remove or simplify to descriptive comment	Multi-line assignment instruction in comment	APPLIED
+TRACE	hydrophobicity_pymol.py	line 41	# DTODO Write a PyMOL extension...	Remove or simplify to descriptive comment	Multi-line assignment instruction in comment	APPLIED
+PATH	visualize_protein.pml	line 37	png ./Yazdani_7068679_assignment2_1.png	png ./protein_visualization.png	Remove student name from output filename	APPLIED
+PATH	calculate_hydrophobicity.py	line 191	f"./{STUDENT_SURNAME}_hydrophobicity_plot_{window_size}.png"	f"./{OUTPUT_PREFIX}_plot_window{window_size}.png"	Remove student name reference; use generic naming	APPLIED
+PATH	calculate_hydrophobicity.py	line 209	f"./{STUDENT_SURNAME}_hydrophobicity_plot_3.png"	f"./hydrophobicity_plot_window3.png"	Remove student name reference; use generic naming	APPLIED
+DOC	calculate_hydrophobicity.py	lines 196-199	if STUDENT_SURNAME == None: print/exit	Remove or make more generic check	Student-specific validation	APPLIED
+STRUCTURE	root	N/A	Flat structure with all files in root	Consider organizing: scripts/, examples/, tests/	Better organization for multi-file project	NOT_APPLIED - flat structure acceptable for small toolkit
