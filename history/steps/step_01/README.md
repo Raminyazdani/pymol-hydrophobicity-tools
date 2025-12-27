@@ -1,3 +1,3 @@
 # PyMOL Hydrophobicity Tools
 
-Protein hydrophobicity analysis toolkit (in development)
+Protein hydrophobicity analysis toolkit (work in progress)

@@ -1,25 +1,37 @@
-# PyMOL Protein Visualization Script
-fetch 4UC1
+# Load protein structure
+fetch 4uc1
 
-# Clean up
+# Remove water molecules
+remove resn HOH
 remove solvent
 
-# Color ligands
-select ligands, organic
-color cyan, ligands
+# Represent the protein as cartoon
+as cartoon
 
-# Highlight binding sites (within 5A of ligands)
-select binding_site, byres (ligands around 5)
-color grey70, binding_site
+# Colour protein to X
+color yellow
 
-# Highlight specific residues
-select trp_residues, resn TRP
-color magenta, trp_residues
+# Colour ligands (organic molecules) X
+# colour ligands (organic molecules) cyan
+select ligand, organic
+color cyan, ligand
 
-# Display styles
-show sticks, ligands
+# Colour binding sites (residues within 5 angstroms of the ligands) X
+# colour binding sites (residues within 5 angstroms of the ligands) grey
+select binding_site, byres (ligand around 5)
+color grey , binding_site
+
+# Colour X residues X
+# colour Tryptophan residues magenta
+select tryptophan_residues, resn TRP
+color magenta, tryptophan_residues
+
+# Represent the ligand and binding site as sticks
+show sticks, ligand
 show sticks, binding_site
 
-# Ray-traced rendering
-ray 1600, 1200
+# deselect
+deselect
+
+# Export result as png file in your working directory
 png ./protein_visualization.png , dpi=300

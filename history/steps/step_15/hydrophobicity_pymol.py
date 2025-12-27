@@ -1,4 +1,6 @@
 from pymol import cmd, stored
+# OOPS: Wrong module name in import
+from calculate_hydro import get_residues
 
 
 @cmd.extend
