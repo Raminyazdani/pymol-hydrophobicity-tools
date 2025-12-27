@@ -1,4 +1,5 @@
 from pymol import cmd, stored
+from calculate_hydrophobicity import get_residues
 
 
 @cmd.extend

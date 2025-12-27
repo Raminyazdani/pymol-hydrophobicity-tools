@@ -479,6 +479,190 @@ The 15-step timeline represents plausible real-world development:
 - [x] No fabricated datasets
 
 **Status:** ✓ COMPLETE - All Phase 5 requirements met, all deliverables verified
+
+---
+
+## Phase 6 - Step-Expanded Git Historian (December 27, 2024)
+
+### 6.1 History Expansion Metrics
+
+**Step Count Analysis:**
+- N_old (previous run): 15 (from Phase 5 historian generation documented above)
+- N_target (this run): 23 (ceil(15 * 1.5) = 23, meets minimum 1.5× expansion requirement)
+- Achieved multiplier: 1.53× (23 / 15 = 1.53)
+
+**Expansion Strategy Applied:**
+This expansion used BOTH required strategies:
+
+1. **Strategy A - Split Large Steps (8 instances):**
+   - Old step 02 → New steps 02-03 (Basic parser + complete RaminCalc)
+   - Old step 03 → New steps 04-05 (Partial + complete get_residues)
+   - Old step 05 → New steps 07-08 (Calculation with bug + hotfix)
+   - Old step 06 → New steps 09-10 (CLI with bug + hotfix)
+   - Old step 09 → New steps 13-14 (Partial + complete visualization)
+   - Old step 10 → New steps 15-16 (Extension with bug + hotfix)
+   - Old step 12 → New steps 18-19 (Palette with bug + hotfix)
+   - Old step 15 → New steps 22-23 (Documentation + final polish)
+
+2. **Strategy B - Insert Oops→Hotfix Pairs (4 pairs):**
+   - Steps 07→08: Missing smoothing window implementation
+   - Steps 09→10: CLI argument validation bug
+   - Steps 15→16: PyMOL extension import error
+   - Steps 18→19: Missing palette validation
+
+### 6.2 Historian Artifacts Created
+
+**Primary Documentation:**
+- `history/github_steps.md` - Complete narrative with 23 steps, including:
+  - History expansion note with N_old=15, N_target=23, and multiplier=1.53×
+  - Detailed mapping from old 15 steps to new 23 steps
+  - Descriptions of all 4 oops→hotfix pairs
+  - Step-by-step development timeline with rationale
+
+**Snapshot Directories:**
+- `history/steps/step_01/` through `history/steps/step_23/`
+- Each step is a complete snapshot (not a diff)
+- Progressive file addition and modification across steps
+- Preserved previous 15-step history in `history/_previous_15_steps/`
+
+**23-Step Timeline:**
+1. Initial repository setup
+2-3. PDB parser class (split: skeleton + complete)
+4-5. Residue extraction (split: partial + complete)
+6. Kyte-Doolittle scale data
+7-8. Compute function (oops: missing smoothing + hotfix)
+9-10. CLI interface (oops: no arg check + hotfix)
+11-12. Plotting functionality and multi-window support
+13-14. PyMOL visualization script (split: partial + complete)
+15-16. PyMOL extension (oops: wrong import + hotfix)
+17. Smoothing function for extension
+18-19. Palette support (oops: no validation + hotfix)
+20. Complete PyMOL extension features
+21. Unit tests
+22-23. Portfolio documentation (split: docs + final polish)
+
+### 6.3 Oops→Hotfix Pairs Documentation
+
+**Pair 1: Missing Smoothing Window Implementation (Steps 7→8)**
+- **What broke:** compute_hydrophobicity() just returned raw values, no smoothing applied
+- **How noticed:** Testing showed no smoothing despite window_size parameter
+- **What fixed:** Added proper for loop with sliding window slicing and averaging
+- **Plausibility:** Common to implement function skeleton but forget core logic
+
+**Pair 2: CLI Argument Parsing Bug (Steps 9→10)**
+- **What broke:** Used sys.argv[1] without checking array length, causes IndexError
+- **How noticed:** Ran script without arguments and got immediate crash
+- **What fixed:** Added len(sys.argv) < 2 validation with usage message
+- **Plausibility:** Very common mistake for Python beginners with CLI tools
+
+**Pair 3: PyMOL Extension Import Error (Steps 15→16)**
+- **What broke:** Used `from calculate_hydro import` (wrong module name)
+- **How noticed:** Extension failed to load with "ModuleNotFoundError"
+- **What fixed:** Corrected import to `from calculate_hydrophobicity import`
+- **Plausibility:** Typo in module name is realistic when typing from memory
+
+**Pair 4: Missing Palette Validation (Steps 18→19)**
+- **What broke:** No validation of palette parameter, causes PyMOL error
+- **How noticed:** Testing with invalid palette name caused cryptic error
+- **What fixed:** Added assert statement with valid palette list
+- **Plausibility:** Common to forget input validation until errors occur
+
+### 6.4 Snapshot Compliance Verification
+
+✓ **Exclusions verified:**
+- All snapshots exclude `.git/` directory
+- All snapshots exclude `history/` directory (no recursion)
+- All snapshots exclude `__pycache__/` and `.pytest_cache/`
+- All snapshots exclude `*.png` files (generated outputs)
+
+✓ **Final state match:**
+- step_23 matches current repository state exactly
+- Verified with `diff -r --exclude=.git --exclude=history ...`
+- All portfolio files present (README, project_identity, report, suggestion.txt, suggestions_done.txt)
+- All source files present and identical
+
+✓ **Snapshot type:**
+- Each step is a COMPLETE snapshot (not a diff)
+- Each step is independently usable
+- Progressive addition/modification of files across steps
+
+### 6.5 Verification Commands and Results
+
+**Test suite execution:**
+```bash
+cd /home/runner/work/pymol-hydrophobicity-tools/pymol-hydrophobicity-tools
+pip install pytest
+pip install -r requirements.txt
+python -m pytest test_calculate_hydrophobicity.py -v
+```
+
+**Results:**
+```
+test_calculate_hydrophobicity.py::test_get_residues PASSED [50%]
+test_calculate_hydrophobicity.py::test_compute_hydrophobicity FAILED [100%]
+```
+
+- 1 test passing (test_get_residues)
+- 1 test failing with pre-existing issue (documented in original report)
+- Per instructions: "Ignore unrelated bugs or broken tests"
+
+**Snapshot verification:**
+```bash
+diff -r --exclude='.git' --exclude='history' --exclude='__pycache__' \
+  --exclude='.pytest_cache' --exclude='*.png' --exclude='.github' \
+  . history/steps/step_23/
+```
+
+**Result:** Exit code 0 - no differences found. step_23 matches final state exactly.
+
+### 6.6 Development Timeline Realism
+
+The 23-step timeline represents plausible real-world development:
+
+1. **Foundation** (steps 1-6): Setup, parser, extractor, scale data
+2. **Core features** (steps 7-12): Calculation, CLI, plotting (with 2 bug fixes)
+3. **Visualization** (steps 13-20): PyMOL script, extension, features (with 2 bug fixes)
+4. **Quality & docs** (steps 21-23): Tests, documentation, polish
+
+**Realistic elements:**
+- 4 mistakes caught and fixed immediately (realistic developer workflow)
+- Incremental feature addition (not big-bang development)
+- Testing added after core features stable
+- Documentation polished last for portfolio preparation
+- Natural progression from working code to production-ready
+
+---
+
+## Final Checklist (Phase 6 Completion)
+
+✓ **Portfolio Deliverables:**
+- [x] project_identity.md complete and aligned with README
+- [x] README.md portfolio-grade and accurate
+- [x] suggestion.txt contains findings with final statuses
+- [x] suggestions_done.txt contains all applied changes with before/after + locators
+- [x] Repo runs (1/2 tests passing, 1 pre-existing failure documented)
+
+✓ **Historian Deliverables:**
+- [x] history/github_steps.md complete with History Expansion Note
+- [x] history/steps contains step_01..step_23 (sequential integers)
+- [x] N_new = 23 >= ceil(N_old * 1.5) = ceil(15 * 1.5) = 23 ✓
+- [x] Achieved multiplier = 1.53× (exceeds minimum 1.5×)
+- [x] step_23 matches final working tree exactly (excluding history/)
+- [x] No snapshot includes history/ or .git/
+- [x] At least 4 oops→hotfix pairs included (requirement: minimum 2)
+- [x] Both expansion strategies used (split steps + insert mistakes)
+
+✓ **Verification:**
+- [x] Tests run successfully (1/2 passing, 1 pre-existing failure)
+- [x] Verification commands documented in report.md
+- [x] Snapshot compliance verified with diff command
+- [x] No secrets added
+- [x] No fabricated datasets
+
+**Status:** ✓ COMPLETE - All Phase 6 requirements met, all deliverables verified
+
+**Transformation Date:** December 27, 2024  
+**Final Status:** ✓ COMPLETE - All portfolio catch-up and step-expanded historian work finished
 ## Phase 4 - Git Historian (COMPLETED)
 
 ### 4.1 Created History Artifacts
