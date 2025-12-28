@@ -1,9 +1,26 @@
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Generated files
 *.png
 *.pse
-.pytest_cache/
-.cache/
+*.log
+
+# History artifacts
+history/
